@@ -1,0 +1,8 @@
+---
+- name: Take down Prometheus
+  hosts: prometheus_host
+  become: yes
+
+  tasks:
+    - name: Run docker-compose down
+      command: docker-compose -f /opt/prometheus/docker-compose-prometheus.yaml down

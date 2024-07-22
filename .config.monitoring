@@ -1,0 +1,9 @@
+# Archivo .config.monitoring
+
+# Configuración de Grafana
+GF_SECURITY_ADMIN_USER=admin
+GF_SECURITY_ADMIN_PASSWORD=foobar
+GRAFANA_PORT=3000
+
+# URL de Prometheus (cambia esto según tu configuración de red)
+PROMETHEUS_URL=http://prometheus:9090

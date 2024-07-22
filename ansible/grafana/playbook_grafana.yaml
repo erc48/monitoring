@@ -1,0 +1,26 @@
+---
+- name: Deploy Grafana
+  hosts: grafana_host
+  become: yes
+  vars_files:
+    - ../../.env
+
+  tasks:
+    - name: Copy docker-compose file
+      copy:
+        src: ../../docker/docker-compose-grafana.yaml
+        dest: /opt/grafana/docker-compose-grafana.yaml
+
+    - name: Copy provisioning files
+      copy:
+        src: ../../grafana/provisioning
+        dest: /opt/grafana/provisioning
+        remote_src: yes
+
+    - name: Copy config file
+      copy:
+        src: ../../.config.monitoring
+        dest: /opt/grafana/.config.monitoring
+
+    - name: Run docker-compose up
+      command: docker-compose -f /opt/grafana/docker-compose-grafana.yaml --env-file /opt/grafana/.config.monitoring up -d

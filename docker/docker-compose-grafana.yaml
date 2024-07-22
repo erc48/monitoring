@@ -1,0 +1,17 @@
+volumes:
+  grafana_storage: {}
+
+services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    volumes:
+      - grafana_storage:/var/lib/grafana
+      - ./provisioning/:/etc/grafana/provisioning/
+    env_file:
+      - ../.config.monitoring
+    environment:
+      - PROMETHEUS_IP=${PROMETHEUS_IP}
+    restart: always

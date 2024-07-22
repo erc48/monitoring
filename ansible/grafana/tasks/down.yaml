@@ -1,0 +1,8 @@
+---
+- name: Take down Grafana
+  hosts: grafana_host
+  become: yes
+
+  tasks:
+    - name: Run docker-compose down
+      command: docker-compose -f /opt/grafana/docker-compose-grafana.yaml down

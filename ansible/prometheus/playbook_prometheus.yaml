@@ -1,0 +1,20 @@
+---
+- name: Deploy Prometheus
+  hosts: prometheus_host
+  become: yes
+  vars_files:
+    - ../../.env
+
+  tasks:
+    - name: Copy docker-compose file
+      copy:
+        src: ../../docker/docker-compose-prometheus.yaml
+        dest: /opt/prometheus/docker-compose-prometheus.yaml
+
+    - name: Copy prometheus config
+      copy:
+        src: ../../prometheus/prometheus.yml
+        dest: /opt/prometheus/prometheus.yml
+
+    - name: Run docker-compose up
+      command: docker-compose -f /opt/prometheus/docker-compose-prometheus.yaml --env-file /opt/prometheus/.config.monitoring up -d
